@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H3bDocs — Accueil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    /* ── category cards ── */
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .cat-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 18px 14px;
+      box-shadow: var(--shadow-sm);
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s, border-color .18s;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .cat-card:active { transform: scale(.95); }
+    .cat-card:hover  { border-color: var(--teal); box-shadow: var(--shadow-md); }
+
+    .cat-card.wide { grid-column: span 2; flex-direction: row; align-items: center; gap: 14px; }
+    .cat-card.wide .cat-icon { flex-shrink: 0; }
+    .cat-card.wide .cat-body { flex: 1; }
+
+    .cat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+    }
+
+    .cat-card h3 {
+      font-family: var(--font);
+      font-size: .95rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .cat-card p {
+      font-size: .78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* colour themes per category */
+    .theme-teal  { background: rgba(10,124,124,.12); }
+    .theme-gold  { background: rgba(244,160,48,.12); }
+    .theme-blue  { background: rgba(51,102,204,.12); }
+    .theme-green { background: rgba(34,139,90,.12); }
+    .theme-rose  { background: rgba(220,60,80,.12); }
+    .theme-teal  .cat-icon-emoji  { color: var(--teal); }
+
+    /* ── banner ── */
+    .banner {
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+    .banner-emoji { font-size: 2rem; flex-shrink: 0; }
+    .banner h2 { font-family: var(--font); font-size: 1rem; font-weight: 700; margin-bottom: 2px; }
+    .banner p  { font-size: .8rem; opacity: .85; }
+    .banner-badge {
+      margin-left: auto;
+      background: var(--gold);
+      color: #fff;
+      font-family: var(--font);
+      font-size: .7rem;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 50px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="h3b-header">
+    <div class="h3b-header-left">
+      <h1>Bienvenue 👋</h1>
+      <p>Trouve tes documents facilement</p>
+    </div>
+    <div class="h3b-logo-badge">H3bD</div>
+  </header>
+
+  <!-- SEARCH -->
+  <div class="h3b-search">
+    <div class="h3b-search-inner">
+      <span>🔍</span>
+      <input type="search" placeholder="Rechercher un document…" id="searchInput">
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="h3b-content">
+
+    <!-- Banner -->
+    <div class="banner fade-up fade-up-1">
+      <div class="banner-emoji">🎓</div>
+      <div>
+        <h2>Tous tes docs de Terminale</h2>
+        <p>Maths · PC · Français · Philo et plus</p>
+      </div>
+      <div class="banner-badge">100% Gratuit</div>
+    </div>
+
+    <!-- Categories -->
+    <div class="h3b-section-title fade-up fade-up-2">
+      <h2>Catégories</h2>
+      <a href="files.html">Voir tout →</a>
+    </div>
+
+    <div class="cat-grid fade-up fade-up-2">
+
+      <div class="cat-card" data-value="Maths" onclick="navigate(this)">
+        <div class="cat-icon" style="background:rgba(10,124,124,.12)">➕</div>
+        <h3>Mathématiques</h3>
+        <p>Cours, exercices et corrections</p>
+      </div>
+
+      <div class="cat-card" data-value="PC" onclick="navigate(this)">
+        <div class="cat-icon" style="background:rgba(51,102,204,.12)">⚗️</div>
+        <h3>Physique-Chimie</h3>
+        <p>Cours, TP et exercices</p>
+      </div>
+
+      <div class="cat-card" data-value="Recueils_Maths" onclick="navigate(this)">
+        <div class="cat-icon" style="background:rgba(244,160,48,.12)">📚</div>
+        <h3>Recueils Maths</h3>
+        <p>Sujets de devoirs, bacs & TD corrigés</p>
+      </div>
+
+      <div class="cat-card" data-value="Recueils_Pc" onclick="navigate(this)">
+        <div class="cat-icon" style="background:rgba(244,160,48,.12)">🧪</div>
+        <h3>Recueils PC</h3>
+        <p>Anciens sujets PC corrigés</p>
+      </div>
+
+      <div class="cat-card wide" data-value="Autres" onclick="navigate(this)">
+        <div class="cat-icon" style="background:rgba(220,60,80,.12); width:52px; height:52px;">🗂️</div>
+        <div class="cat-body">
+          <h3>Autres matières</h3>
+          <p>Dessin · Français · Anglais · Philo · Romans et bien plus</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Quick tips -->
+    <div class="h3b-section-title fade-up fade-up-4" style="margin-top:28px">
+      <h2>Infos utiles</h2>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:10px;" class="fade-up fade-up-5">
+      <div class="h3b-card" style="display:flex; align-items:center; gap:14px; cursor:default">
+        <div style="font-size:1.6rem; flex-shrink:0">💡</div>
+        <div>
+          <p style="font-family:var(--font); font-weight:700; font-size:.92rem; margin-bottom:2px">Tout est gratuit</p>
+          <p style="font-size:.8rem; color:var(--text-muted)">Tous nos documents sont en libre téléchargement, sans inscription.</p>
+        </div>
+      </div>
+      <div class="h3b-card" style="display:flex; align-items:center; gap:14px; cursor:default" onclick="window.location.href='contact.html'">
+        <div style="font-size:1.6rem; flex-shrink:0">📩</div>
+        <div>
+          <p style="font-family:var(--font); font-weight:700; font-size:.92rem; margin-bottom:2px">Proposer un document</p>
+          <p style="font-size:.8rem; color:var(--text-muted)">Contribue à la bibliothèque en nous envoyant tes docs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="h3b-footer">© 2026 H3bDocs · Fait avec ❤️</div>
+  </main>
+
+  <!-- BOTTOM NAV -->
+  <nav class="h3b-nav">
+    <a href="fUpload.html" class="active">
+      <span class="nav-icon">🏠</span>
+      <span>Accueil</span>
+    </a>
+    <a href="files.html">
+      <span class="nav-icon">📁</span>
+      <span>Fichiers</span>
+    </a>
+    <a href="apropos.html">
+      <span class="nav-icon">ℹ️</span>
+      <span>À propos</span>
+    </a>
+    <a href="contact.html">
+      <span class="nav-icon">✉️</span>
+      <span>Contact</span>
+    </a>
+  </nav>
+
+  <script>
+    function navigate(card) {
+      const page = card.dataset.value;
+      window.location.href = `docs/${page}`;
+    }
+
+    // Simple search filter
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const q = this.value.toLowerCase();
+      document.querySelectorAll('.cat-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.opacity = text.includes(q) || q === '' ? '1' : '.35';
+      });
+    });
+  </script>
+</body>
+</html>

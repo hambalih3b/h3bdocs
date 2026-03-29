@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H3bDocs — Inscription</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="shared.css">
+  <style>
+    body {
+      justify-content: flex-start;
+      padding-bottom: 40px;
+    }
+
+    .signup-wrap {
+      width: 100%;
+      padding: 28px 20px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* top badge */
+    .signup-top {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .signup-logo {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--teal-dark), var(--teal-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font);
+      font-weight: 900;
+      font-size: 1.4rem;
+      color: #fff;
+      margin: 0 auto 16px;
+      box-shadow: 0 8px 24px rgba(10,124,124,.3);
+    }
+    .signup-top h1 {
+      font-family: var(--font);
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -.5px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .signup-top p {
+      font-size: .88rem;
+      color: var(--text-muted);
+    }
+
+    /* form card */
+    .signup-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-md);
+      padding: 24px 20px;
+      margin-bottom: 16px;
+    }
+
+    /* password strength */
+    .strength-bar-wrap {
+      height: 4px;
+      background: var(--border);
+      border-radius: 50px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .strength-bar {
+      height: 100%;
+      border-radius: 50px;
+      width: 0%;
+      transition: width .3s, background .3s;
+    }
+    .strength-label {
+      font-size: .75rem;
+      margin-top: 4px;
+      font-family: var(--font);
+      font-weight: 600;
+    }
+
+    /* submit */
+    .submit-btn {
+      width: 100%;
+      padding: 15px;
+      font-size: 1rem;
+      border-radius: var(--radius-sm);
+      border: none;
+      background: linear-gradient(135deg, var(--teal), var(--teal-light));
+      color: #fff;
+      font-family: var(--font);
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(10,124,124,.3);
+      transition: opacity .2s, transform .15s, box-shadow .2s;
+      letter-spacing: .3px;
+    }
+    .submit-btn:hover  { opacity: .92; box-shadow: 0 6px 24px rgba(10,124,124,.4); }
+    .submit-btn:active { transform: scale(.98); }
+
+    /* login link */
+    .login-link {
+      text-align: center;
+      font-size: .85rem;
+      color: var(--text-muted);
+    }
+    .login-link a {
+      color: var(--teal);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    /* checkmark anim */
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 28px 20px;
+    }
+    .success-msg .check {
+      font-size: 3.5rem;
+      animation: popIn .5s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    .success-msg h2 {
+      font-family: var(--font);
+      font-size: 1.3rem;
+      font-weight: 800;
+      margin: 14px 0 6px;
+      color: var(--teal);
+    }
+    .success-msg p { color: var(--text-muted); font-size: .88rem; }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: scale(.4); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="signup-wrap">
+
+    <!-- Top -->
+    <div class="signup-top fade-up fade-up-1">
+      <div class="signup-logo">H3b</div>
+      <h1>Inscription</h1>
+      <p>Rejoignez la communauté H3bDocs</p>
+    </div>
+
+    <!-- Form card -->
+    <div class="signup-card fade-up fade-up-2" id="formCard">
+
+      <div class="h3b-input-group">
+        <label>Nom et Prénom</label>
+        <input type="text" id="fullname" placeholder="Ex : Fatima Moussa" required>
+      </div>
+
+      <div class="h3b-input-group">
+        <label>Adresse email</label>
+        <input type="email" id="email" placeholder="votre@email.com" required>
+      </div>
+
+      <div class="h3b-input-group">
+        <label>Mot de passe</label>
+        <input type="password" id="password" placeholder="Choisissez un mot de passe fort" required
+               oninput="checkStrength(this.value)">
+        <div class="strength-bar-wrap">
+          <div class="strength-bar" id="strengthBar"></div>
+        </div>
+        <div class="strength-label" id="strengthLabel" style="color:var(--text-muted)"></div>
+      </div>
+
+      <div class="h3b-input-group" style="margin-bottom:20px">
+        <label>Confirmer le mot de passe</label>
+        <input type="password" id="password2" placeholder="Répétez votre mot de passe" required>
+      </div>
+
+      <button class="submit-btn" onclick="handleSubmit()">
+        Créer mon compte →
+      </button>
+    </div>
+
+    <!-- Success state (hidden) -->
+    <div class="signup-card success-msg" id="successCard">
+      <div class="check">✅</div>
+      <h2>Compte créé !</h2>
+      <p>Bienvenue dans la communauté H3bDocs.<br>Redirecton vers l'accueil…</p>
+    </div>
+
+    <!-- Privacy -->
+    <p class="login-link fade-up fade-up-3">
+      En vous inscrivant, vous acceptez nos <a href="#">Conditions d'utilisation</a>.
+    </p>
+    <br>
+    <p class="login-link fade-up fade-up-4">
+      Déjà un compte ? <a href="fUpload.html">Se connecter</a>
+    </p>
+
+    <div class="h3b-footer" style="padding-top:24px">© 2026 H3bDocs · Made with ❤️</div>
+  </div>
+
+  <script>
+    function checkStrength(pw) {
+      const bar   = document.getElementById('strengthBar');
+      const label = document.getElementById('strengthLabel');
+      let score   = 0;
+      if (pw.length >= 8)                      score++;
+      if (/[A-Z]/.test(pw))                    score++;
+      if (/[0-9]/.test(pw))                    score++;
+      if (/[^A-Za-z0-9]/.test(pw))            score++;
+
+      const levels = [
+        { w: '0%',   c: 'transparent', t: '' },
+        { w: '25%',  c: '#e05555',     t: '🔴 Trop faible' },
+        { w: '50%',  c: '#f4a030',     t: '🟡 Faible' },
+        { w: '75%',  c: '#2a9d5c',     t: '🟢 Bon' },
+        { w: '100%', c: '#0a7c7c',     t: '✅ Excellent !' },
+      ];
+
+      bar.style.width      = levels[score].w;
+      bar.style.background = levels[score].c;
+      label.textContent    = levels[score].t;
+      label.style.color    = levels[score].c;
+    }
+
+    function handleSubmit() {
+      const name  = document.getElementById('fullname').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const pw    = document.getElementById('password').value;
+      const pw2   = document.getElementById('password2').value;
+
+      if (!name || !email || !pw) {
+        alert('Veuillez remplir tous les champs.');
+        return;
+      }
+      if (pw !== pw2) {
+        alert('Les mots de passe ne correspondent pas.');
+        return;
+      }
+      if (pw.length < 6) {
+        alert('Le mot de passe doit faire au moins 6 caractères.');
+        return;
+      }
+
+      // Show success
+      document.getElementById('formCard').style.display = 'none';
+      const suc = document.getElementById('successCard');
+      suc.style.display = 'block';
+
+      setTimeout(() => window.location.href = 'fUpload.html', 2800);
+    }
+  </script>
+</body>
+</html>

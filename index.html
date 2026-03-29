@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>H3bDocs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal:      #0a7c7c;
+      --teal-l:    #0fb3b3;
+      --gold:      #f4a030;
+      --gold-l:    #ffc55a;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #051818;
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* ── background blobs ── */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: .35;
+      animation: drift 8s ease-in-out infinite alternate;
+    }
+    .blob-1 { width: 340px; height: 340px; background: var(--teal); top: -80px; left: -80px; animation-delay: 0s; }
+    .blob-2 { width: 280px; height: 280px; background: var(--gold); bottom: -60px; right: -60px; animation-delay: 2s; }
+    .blob-3 { width: 200px; height: 200px; background: var(--teal-l); top: 50%; left: 60%; animation-delay: 4s; }
+
+    @keyframes drift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(20px, 20px) scale(1.1); }
+    }
+
+    /* ── grid overlay ── */
+    .grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+
+    /* ── main content ── */
+    .splash {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 32px;
+      gap: 0;
+    }
+
+    .logo-ring {
+      width: 100px;
+      height: 100px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-l));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -1px;
+      box-shadow: 0 0 60px rgba(11,179,179,.45);
+      animation: logoIn .7s cubic-bezier(.34,1.56,.64,1) both;
+      margin-bottom: 28px;
+    }
+
+    @keyframes logoIn {
+      from { opacity: 0; transform: scale(.5) rotate(-10deg); }
+      to   { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    .splash h1 {
+      font-size: clamp(2.4rem, 12vw, 3.2rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      animation: fadeUp .6s .2s ease both;
+    }
+
+    .splash h1 .accent {
+      background: linear-gradient(90deg, var(--gold), var(--gold-l));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .tagline {
+      margin-top: 14px;
+      font-size: clamp(.9rem, 4vw, 1.05rem);
+      font-weight: 400;
+      color: rgba(255,255,255,.6);
+      max-width: 300px;
+      line-height: 1.55;
+      animation: fadeUp .6s .35s ease both;
+    }
+
+    .shimmer-text {
+      margin-top: 24px;
+      font-size: clamp(.8rem, 3.5vw, .95rem);
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, rgba(255,255,255,.2), rgba(255,255,255,.9), var(--gold-l), rgba(255,255,255,.2));
+      background-size: 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: shimmer 2.5s linear infinite, fadeUp .6s .5s ease both;
+    }
+
+    @keyframes shimmer {
+      from { background-position: 200% center; }
+      to   { background-position: -200% center; }
+    }
+
+    /* ── progress bar ── */
+    .progress-wrap {
+      margin-top: 44px;
+      width: 180px;
+      height: 4px;
+      background: rgba(255,255,255,.12);
+      border-radius: 100px;
+      overflow: hidden;
+      animation: fadeUp .5s .6s ease both;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--teal-l), var(--gold));
+      border-radius: 100px;
+      animation: fill 5.5s linear forwards;
+    }
+
+    @keyframes fill {
+      to { width: 100%; }
+    }
+
+    /* ── arrow bounce ── */
+    .arrow-wrap {
+      position: absolute;
+      bottom: 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      opacity: .5;
+      animation: fadeUp .5s .8s ease both;
+      cursor: pointer;
+    }
+    .arrow-wrap span { font-size: .72rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
+    .chevron {
+      width: 20px;
+      height: 20px;
+      border-right: 2.5px solid #fff;
+      border-bottom: 2.5px solid #fff;
+      transform: rotate(45deg);
+      animation: bounce 1.4s ease-in-out infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50%       { transform: rotate(45deg) translateY(6px); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="grid"></div>
+
+  <div class="splash">
+    <div class="logo-ring">H3b</div>
+
+    <h1>H3b<span class="accent">Docs</span></h1>
+    <p class="tagline">La meilleure bibliothèque numérique gratuite pour les élèves de Terminale</p>
+
+    <div class="shimmer-text">100 % gratuit · Toujours</div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar"></div>
+    </div>
+  </div>
+
+  <div class="arrow-wrap" onclick="go()">
+    <span>Entrer</span>
+    <div class="chevron"></div>
+  </div>
+
+  <script>
+    // Auto-redirect after 6s
+    const timer = setTimeout(go, 6000);
+
+    function go() {
+      clearTimeout(timer);
+      document.body.style.transition = 'opacity .4s ease';
+      document.body.style.opacity = '0';
+      setTimeout(() => window.location.href = 'fUpload.html', 400);
+    }
+
+    document.querySelector('.arrow-wrap').addEventListener('click', go);
+  </script>
+</body>
+</html>
